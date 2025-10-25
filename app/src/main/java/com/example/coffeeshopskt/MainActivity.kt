@@ -18,6 +18,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
@@ -58,14 +62,16 @@ class MainActivity : ComponentActivity() {
                     },
                 )
                 { innerPadding ->
+                    var tituloPasado by rememberSaveable { mutableStateOf("") }
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "Principal") {
                         composable("Principal") {principal(navController,
-                            Modifier.padding(innerPadding))  }
-//                        composable("Portada") {portada(navController,
-//                            Modifier.padding(innerPadding))  }
+                            Modifier.padding(innerPadding),{tituloPasado = it})  }
+                        composable("Comentarios") {comentarios(navController,
+                            Modifier.padding(innerPadding),tituloPasado)  }
 
                     }
+
                 }
             }
         }
