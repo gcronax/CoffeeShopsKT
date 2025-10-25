@@ -35,12 +35,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.coffeeshopskt.ui.theme.CoffeeShopsTheme
+import com.example.coffeeshopskt.ui.theme.PurpleGrey80
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -94,7 +96,9 @@ fun IconDropDownMenu(modifier: Modifier) {
             expanded = true
         }) {
             Icon(imageVector = Icons.Filled.MoreVert,
-                contentDescription = "Buscar")
+                contentDescription = "Buscar",
+                tint=PurpleGrey80
+            )
         }
 
         DropdownMenu(

@@ -22,9 +22,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -116,20 +118,31 @@ fun comentarios(navController: NavHostController, modifier: Modifier = Modifier,
                     }
                 }
             })
-        Button(onClick = { /*TODO*/ }, modifier =
-            Modifier.align(Alignment.CenterHorizontally).padding(16.dp)) {
-            Text(text = "Botón prueba")
+        val showButton by remember{
+            derivedStateOf {
+                gridState.firstVisibleItemIndex>0
+            }
         }
-
+        if(showButton) {
+            Button(
+                onClick = { /*TODO*/ },
+                modifier =
+                    Modifier.align(Alignment.CenterHorizontally).padding(16.dp)
+            ) {
+                Text(text = "add new comment")
+            }
+        }
     }
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
