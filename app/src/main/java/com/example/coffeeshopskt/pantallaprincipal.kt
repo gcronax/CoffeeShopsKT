@@ -67,9 +67,8 @@ fun principal(navController: NavHostController, modifier: Modifier = Modifier,ti
                 .clickable(onClick = {
                     navController.navigate("Comentarios")
                     titulo(cartaSelect[index].titulo)
-                })
-
-                ) {
+                }))
+            {
                 Image(
                     painter = painterResource(id = cartaSelect[index].direccion),
                     contentDescription = null,
