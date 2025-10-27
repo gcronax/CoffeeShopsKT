@@ -2,6 +2,7 @@ package com.example.coffeeshopskt
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,9 +18,15 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -34,6 +41,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.isTraversalGroup
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -105,6 +115,13 @@ fun comentarios(navController: NavHostController, modifier: Modifier = Modifier,
             fontFamily = fuenteTitulo,
             textAlign = TextAlign.Center
         )
+        val textSearch = rememberTextFieldState()
+        var textOnSearch by rememberSaveable { mutableStateOf("") }
+        SimpleSearchBar(textSearch,{textOnSearch = it},listaComentarios,modifier)
+//        Text(text = textOnSearch)
+
+
+
         LazyVerticalStaggeredGrid(
             modifier= Modifier.fillMaxSize().weight(1f),
             columns = StaggeredGridCells.Fixed(2),
@@ -139,6 +156,46 @@ fun comentarios(navController: NavHostController, modifier: Modifier = Modifier,
             }
         }
     }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SimpleSearchBar(
+    textFieldState: TextFieldState,
+    onSearch: (String) -> Unit,
+    searchResults: List<String>,
+    modifier: Modifier = Modifier
+) {
+    // Controls expansion state of the search bar
+    var expanded by rememberSaveable { mutableStateOf(false) }
+
+
+        SearchBar(
+            modifier = Modifier
+//                .semantics { traversalIndex = 0f }
+            ,
+            inputField = {
+                SearchBarDefaults.InputField(
+                    query = textFieldState.text.toString(),
+                    onQueryChange = { textFieldState.edit { replace(0,
+                        length, it) } },
+                    onSearch = {
+                        onSearch(textFieldState.text.toString())
+                        expanded = false
+                    },
+
+                    expanded = false,
+                    onExpandedChange = { expanded = false },
+                    placeholder = { Text("Search") }
+                )
+            },
+            expanded = expanded,
+            onExpandedChange = { expanded = it },
+        )
+        {
+
+        }
 }
 
 
