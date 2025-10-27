@@ -36,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.coffeeshopskt.ui.theme.fuenteTitulo
 
 data class cartas(
     val titulo: String,
@@ -43,7 +44,8 @@ data class cartas(
     val subbit: String
 )
 @Composable
-fun principal(navController: NavHostController, modifier: Modifier = Modifier,titulo: (String) -> Unit) {
+fun principal(navController: NavHostController, modifier: Modifier = Modifier,
+              titulo: (String) -> Unit) {
 
     val cartaSelect by remember {
         mutableStateOf(
@@ -84,7 +86,7 @@ fun principal(navController: NavHostController, modifier: Modifier = Modifier,ti
                     modifier = Modifier.padding(horizontal = 12.dp),
                     fontSize = 26.sp,
                     fontWeight = FontWeight.Bold,
-                    fontStyle = FontStyle.Italic
+                    fontFamily = fuenteTitulo
                 )
                 var estadoRating by rememberSaveable { mutableFloatStateOf(0f) }
                 RatingBar( onStarselected = {estadoRating = it},5,estadoRating)

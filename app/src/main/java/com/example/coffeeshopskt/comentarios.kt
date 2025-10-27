@@ -27,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -39,6 +40,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.coffeeshopskt.ui.theme.fuenteTitulo
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -99,7 +102,7 @@ fun comentarios(navController: NavHostController, modifier: Modifier = Modifier,
             modifier = modifier.fillMaxWidth(),
             fontSize = 26.sp,
             fontWeight = FontWeight.Bold,
-            fontStyle = FontStyle.Italic,
+            fontFamily = fuenteTitulo,
             textAlign = TextAlign.Center
         )
         LazyVerticalStaggeredGrid(
@@ -123,9 +126,12 @@ fun comentarios(navController: NavHostController, modifier: Modifier = Modifier,
                 gridState.firstVisibleItemIndex>0
             }
         }
+        val corutinesScope = rememberCoroutineScope()
         if(showButton) {
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { corutinesScope.launch {
+                    gridState.animateScrollToItem(0)
+                } },
                 modifier =
                     Modifier.align(Alignment.CenterHorizontally).padding(16.dp)
             ) {

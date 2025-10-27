@@ -1,7 +1,7 @@
 package com.example.coffeeshopskt.ui.theme
 
-import androidx.compose.material3.R
 import androidx.compose.material3.Typography
+import com.example.coffeeshopskt.R
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -35,5 +35,6 @@ val Typography = Typography(
     )
     */
 )
-//val fuenteTitulo = FontFamily(Font(R.font.courgette_regular,
-//    FontWeight.Light))
+val fuenteTitulo = FontFamily(Font(
+    R.font.aliviaregular,
+    FontWeight.Light))
