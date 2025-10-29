@@ -23,6 +23,7 @@ import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.DockedSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.SearchBar
@@ -128,14 +129,17 @@ fun comentarios(navController: NavHostController, modifier: Modifier = Modifier,
             state = gridState,
             content = {
                 items(listaComentarios.size) { indice ->
-                    Card(
-                        modifier = Modifier.padding(5.dp)
-                    ) {
-                        Text(
-                            text = listaComentarios[indice],
+                    if (listaComentarios[indice].contains(textOnSearch, ignoreCase = true)){
+                        Card(
                             modifier = Modifier.padding(5.dp)
-                        )
+                        ) {
+                            Text(
+                                text = listaComentarios[indice],
+                                modifier = Modifier.padding(5.dp)
+                            )
+                        }
                     }
+
                 }
             })
         val showButton by remember{
@@ -171,10 +175,11 @@ fun SimpleSearchBar(
     var expanded by rememberSaveable { mutableStateOf(false) }
 
 
-        SearchBar(
-            modifier = Modifier
-//                .semantics { traversalIndex = 0f }
-            ,
+    DockedSearchBar(
+//            modifier= Modifier
+//                .fillMaxWidth()
+//                .height(56.dp),
+
             inputField = {
                 SearchBarDefaults.InputField(
                     query = textFieldState.text.toString(),
